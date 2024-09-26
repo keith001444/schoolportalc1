@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <!-- -------Styles------- -->
+     <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+     <!-- ---------------Navigation Bar----------------- -->
+    <div class="container">
+        <div class="navigation" id="navigate">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='images/your_uploaded_image.jpg') }}" alt="Uploaded Logo">
+                        <span class="title">Manager</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('registered') }}">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="title">Registered Students</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('add_or_remove_student') }}">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="title">Add/Remove Student</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="{{url_for('index1')}}">
+                        <span class="icon"><ion-icon name="cash-outline"></ion-icon></ion-icon></span>
+                        <span class="title">Pay Fees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_for('students_with_balance')}}">
+                        <span class="icon"><ion-icon name="cash-outline"></ion-icon></ion-icon></span>
+                        <span class="title">Fee Areas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        <span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
+                        <span class="title">Memo/Announcements</span>
+                    </a>
+                </li>
+               <li>
+                    <a href="{{url_for('non_compliant_students')}}">
+                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+                        <span class="title">Non-compliant Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_for('health_issue')}}">
+                        <span class="icon"><ion-icon name="medkit-outline"></ion-icon></span>
+                        <span class="title">Health Issue Students</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                        <span class="title">Top/Lowest Class</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="{{url_for('login')}}">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Log Out</span>
+                    </a>
+
+                </li>
+
+            </ul>
+        </div>
+        <!-- -------- Main ------------- -->
+    </div>
+    <!-- -------Scripts------- -->
+<!--     <script src="assets/js/main.js"></script>-->
+     <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon class="Menu" name="menu"></ion-icon>
+            </div>
+            <div class="search">
+                <label>
+
+                </label>
+            </div>
+            <div class="user">
+<!--           -->
+<!--              -->
+ {% if profile_picture %}
+        <h2>Current Profile Picture:</h2>
+        <img src="{{ url_for('static', filename='uploads/' + username + '_profile_picture.jpg') }}" alt="Profile Picture">
+    {% else %}
+        opps
+    {% endif %}        </div>
+
+        </div>
+
+{% block content %}{% endblock %}
+
+     </div>
+<script src="static/js/main.js"></script>
+
+    <!---------------Ionicons------------------------>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script>
+    // On page load, check if the other page's title is stored in localStorage
+    window.onload = function() {
+        var savedTitle = localStorage.getItem('otherPageTitle');
+        if (savedTitle) {
+            document.title = savedTitle; // Change the title if found in localStorage
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Manager Page Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Change Manager's Title</h2>
+    <input type="text" id="titleInput" placeholder="Enter new title for the other page">
+    <button onclick="setOtherPageTitle()">Set Title for Manager's Page</button>
+    <h2>Change Teacher's Page's Title</h2>
+    <input type="text" id="titleInput2" placeholder="Enter new title for the other page">
+    <button onclick="setTeacherTitle()">Set Title for Teacher's Page</button>
+    <h2>Change Other Student's Page's Title</h2>
+    <input type="text" id="titleInput3" placeholder="Enter new title for the other page">
+    <button onclick="setStudentTitle()">Set Title for Other Page</button>
+
+     <h2>Upload Your Image</h2>
+    <form action="/upload_image" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+<script>
+    // Function to set the title in localStorage
+    function setOtherPageTitle() {
+        var newTitle = document.getElementById('titleInput').value;
+        if (newTitle.trim() !== "") {
+            localStorage.setItem('otherPageTitle', newTitle);
+            alert("The title of the other page has been set to: " + newTitle);
+        } else {
+            alert("Please enter a valid title.");
+        }
+    }
+
+    function setTeacherTitle() {
+        var newTitle = document.getElementById('titleInput2').value;
+
+        if (newTitle.trim() !== "") {
+            localStorage.setItem('TeacherTitle', newTitle);
+            alert("The title of the other page has been set to: " + newTitle);
+        } else {
+            alert("Please enter a valid title.");
+        }
+    }
+    function setStudentTitle() {
+        var newTitle = document.getElementById('titleInput3').value;
+
+        if (newTitle.trim() !== "") {
+            localStorage.setItem('StudentTitle', newTitle);
+            alert("The title of the other page has been set to: " + newTitle);
+        } else {
+            alert("Please enter a valid title.");
+        }
+    }
+</script>
+
+</body>
+</html>

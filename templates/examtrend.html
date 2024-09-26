@@ -1,0 +1,156 @@
+{% extends "dashboard.html" %}
+{% block content %}
+ <style>
+        h5{
+         color: red;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+<div class="dashboard">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <canvas id="studentScoresChart" width="400" height="200"></canvas>
+</div>
+    <script>
+        // Student scores data from the server
+        const studentScores = {{ exam_scores | safe }};
+
+        // X-axis labels
+        const terms = ['Term 1 Exam 1', 'Term 1 Exam 2', 'Term 1 Exam 3',
+                       'Term 2 Exam 1', 'Term 2 Exam 2', 'Term 2 Exam 3',
+                       'Term 3 Exam 1', 'Term 3 Exam 2', 'Term 3 Exam 3'];
+
+        // Create datasets for each year with data
+        const datasets = Object.keys(studentScores).map(year => ({
+            label: `Year ${year}`,
+            data: studentScores[year] || Array(9).fill(null),  // Fill with null if no data for that term
+            fill: false,
+            borderColor: getRandomColor(),
+            tension: 0.1
+        }));
+
+        // Function to generate random colors for the lines
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Create the chart
+        const ctx = document.getElementById('studentScoresChart').getContext('2d');
+        const studentScoresChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: terms,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: '{{ student_id }} Scores Over the Years'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Examinations'
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Scores'
+                        },
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    </script>
+{% if student_marks %}
+
+{% for marks in range(length) %}
+<h5>year = {{ student_marks[marks][1] }} term =  {{ student_marks[marks][2] }} type =  {{ student_marks[marks][3] }}</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Subjects</th>
+                <th>Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>Mathematics</td>
+                <td> {{ student_marks[marks][4] }}</td>
+            </tr>
+             <tr>
+                <td>Biology</td>
+                <td>{{ student_marks[marks][5] }}</td>
+            </tr>
+             <tr>
+                <td>Chemistry</td>
+                <td>{{ student_marks[marks][6] }}</td>
+            </tr>
+             <tr>
+                <td>Physics</td>
+                <td>{{ student_marks[marks][7] }}</td>
+            </tr>
+             <tr>
+                <td>Geography</td>
+                <td>{{ student_marks[marks][8] }}</td>
+            </tr>
+            <tr>
+                <td>Business</td>
+                <td>{{ student_marks[marks][9] }}</td>
+            </tr>
+            <tr>
+                <td>English</td>
+                <td>{{ student_marks[marks][10] }}</td>
+            </tr>
+            <tr>
+                <td>Kiswahili</td>
+                <td>{{ student_marks[marks][11] }}</td>
+            </tr>
+            <tr>
+                <td>C.R.E</td>
+                <td>{{ student_marks[marks][12] }}</td>
+            </tr>
+            <tr>
+                <td>French</td>
+                <td>{{ student_marks[marks][13] }}</td>
+            </tr>
+            <tr>
+                <td>Average</td>
+                <td>{{ student_marks[marks][14] }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+{% endfor %}
+{% else %}
+    <p>No examination records found for this student.</p>
+{% endif %}
+
+{% endblock %}
